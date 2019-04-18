@@ -7,6 +7,9 @@ ENV ANDROID_HOME "/sdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV VERSION_ANDROID_NDK "android-ndk-r12b"
+
+ENV ANDROID_NDK_HOME "/sdk/${VERSION_ANDROID_NDK}"
 
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
@@ -22,6 +25,7 @@ RUN apt-get -qq update && \
       lib32z1 \
       unzip \
       build-essential \
+      file \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN rm -f /etc/ssl/certs/java/cacerts; \
@@ -44,4 +48,8 @@ RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < /sdk/pac
 ${ANDROID_HOME}/tools/bin/sdkmanager ${PACKAGES}
 
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
+
+ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
+RUN unzip /ndk.zip -d /sdk && \
+    rm -v /ndk.zip
 
