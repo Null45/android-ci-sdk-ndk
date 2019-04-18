@@ -1,20 +1,15 @@
-# jonbulica/android-ci-ndk
-
 ### Continous Integration (CI) for Android apps on GitLab
-An image for building Android apps with support for multiple SDK Build Tools. 
-This Docker image contains the Android SDK, the NDK and the most common packages 
-necessary for building Android apps in a CI tool. Based on 
-[javiersantos/android-ci](https://github.com/javiersantos/android-ci).
 
-You can define additional packages by adding them to the `packages.txt` file.
+## Sample usages
+### GitLab
+*.gitlab-ci.yml*
 
-## Sample Implementation
-### GitLab (`.gitlab-ci.yml`)
 ```yml
-image: jonbulica/android-ci-ndk:latest
+image: hantrungkien/android-ci-sdk-ndk:latest
 
 before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
+    - mkdir -p $GRADLE_USER_HOME
     - chmod +x ./gradlew
 
 cache:
@@ -24,6 +19,7 @@ cache:
 
 stages:
   - build
+  - test
 
 build:
   stage: build
@@ -32,4 +28,25 @@ build:
   artifacts:
     paths:
       - app/build/outputs/apk/
+      
+unitTests:
+  stage: test
+  script:
+    - ./gradlew test
+```
+
+### Bitbucket
+*bitbucket-pipeline.yml*
+
+```yml
+image: hantrungkien/android-ci-sdk-ndk:latest
+
+pipelines:
+  default:
+    - step:
+        script:
+          - export GRADLE_USER_HOME=`pwd`/.gradle
+          - mkdir -p $GRADLE_USER_HOME
+          - chmod +x ./gradlew
+          - ./gradlew assembleDebug
 ```
