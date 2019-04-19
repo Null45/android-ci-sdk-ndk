@@ -11,6 +11,11 @@ ENV VERSION_ANDROID_NDK "android-ndk-r19c"
 
 ENV ANDROID_NDK_HOME "/sdk/${VERSION_ANDROID_NDK}"
 
+# Constraint Layout / [Solver for ConstraintLayout 1.0.0-alpha8, ConstraintLayout for Android 1.0.0-alpha8]
+RUN mkdir -p $ANDROID_HOME/licenses/ && \
+    echo "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e" > $ANDROID_HOME/licenses/android-sdk-license && \
+    echo "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license
+
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
       bzip2 \
