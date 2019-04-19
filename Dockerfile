@@ -58,7 +58,9 @@ ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64
 RUN unzip /ndk.zip -d $ANDROID_HOME && \
     rm -v /ndk.zip
 
-ADD https://github.com/Kitware/CMake/releases/download/v3.10.2/cmake-3.10.2.zip /cmake.zip
-RUN unzip /cmake.zip -d $ANDROID_HOME && \
-    rm -v /cmake.zip
+RUN mkdir -p ${ANDROID_HOME}/cmake && \
+    cd ${ANDROID_HOME}/cmake && \
+    curl -s https://github.com/Kitware/CMake/releases/download/v3.10.2/cmake-3.10.2.zip > cmake.zip && \
+    unzip cmake.zip && \
+    rm -f cmake.zip
 
