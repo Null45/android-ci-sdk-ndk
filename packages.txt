@@ -1,9 +1,6 @@
-cmake;3.10.2.4988404
 build-tools;28.0.3
 extras;android;m2repository
 extras;google;m2repository
 extras;google;google_play_services
 platform-tools
 platforms;android-28
-ndk-bundle
-cmake;3.6.4111459

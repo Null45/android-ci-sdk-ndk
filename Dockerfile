@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-MAINTAINER KienHT
+MAINTAINER KienHT<kienhantrung@gmai.com>
 
 ENV VERSION_SDK_TOOLS "4333796"
 
@@ -10,6 +10,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION_ANDROID_NDK "android-ndk-r19c"
 
 ENV ANDROID_NDK_HOME "/sdk/ndk-bundle"
+
+ENV ANDROID_CMAKE_REV="3.6.4111459"
+ENV ANDROID_CMAKE_REV_3_10="3.10.2.4988404"
 
 # Constraint Layout / [Solver for ConstraintLayout 1.0.0-alpha8, ConstraintLayout for Android 1.0.0-alpha8]
 RUN mkdir -p $ANDROID_HOME/licenses/ && \
@@ -57,4 +60,8 @@ RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
 RUN unzip /ndk.zip -d $ANDROID_NDK_HOME && \
     rm -v /ndk.zip && \
-    mv ${ANDROID_NDK_HOME}/${VERSION_ANDROID_NDK} ${ANDROID_NDK_HOME}
+    mv /sdk/ndk-bundle/android-ndk-r19c/* /sdk/ndk-bundle/
+
+RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
+    yes | ${ANDROID_HOME}/tools/bin/sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10 \
+    && yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'ndk-bundle' 
