@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV VERSION_ANDROID_NDK "android-ndk-r19c"
 
-ENV ANDROID_NDK_HOME "/sdk/${VERSION_ANDROID_NDK}"
+ENV ANDROID_NDK_HOME "/sdk/ndk-bundle"
 
 # Constraint Layout / [Solver for ConstraintLayout 1.0.0-alpha8, ConstraintLayout for Android 1.0.0-alpha8]
 RUN mkdir -p $ANDROID_HOME/licenses/ && \
@@ -37,30 +37,27 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
-    unzip /sdk.zip -d /sdk && \
+    unzip /sdk.zip -d $ANDROID_HOME && \
 rm -v /sdk.zip
 
 RUN mkdir -p $ANDROID_HOME/licenses/ \
   && echo "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e" > $ANDROID_HOME/licenses/android-sdk-license \
 && echo "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license
 
-ADD packages.txt /sdk
+ADD packages.txt $ANDROID_HOME
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
   ${ANDROID_HOME}/tools/bin/sdkmanager --update
 
-RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < /sdk/packages.txt && \
+RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < ${ANDROID_HOME}/packages.txt && \
 ${ANDROID_HOME}/tools/bin/sdkmanager ${PACKAGES}
 
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 
 ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
-RUN unzip /ndk.zip -d $ANDROID_HOME && \
+RUN unzip /ndk.zip -d $ANDROID_NDK_HOME && \
     rm -v /ndk.zip
 
-RUN mkdir -p ${ANDROID_HOME}/cmake && \
-    cd ${ANDROID_HOME}/cmake && \
-    curl -s https://github.com/Kitware/CMake/releases/download/v3.10.2/cmake-3.10.2.zip > cmake.zip && \
-    unzip cmake.zip && \
-    rm -f cmake.zip
-
+ADD https://dl.google.com/android/repository/cmake-3.10.2-linux-x86_64.zip /cmake.zip
+RUN unzip /cmake.zip -d ${ANDROID_HOME}/cmake && \
+    rm -v /cmake.zip

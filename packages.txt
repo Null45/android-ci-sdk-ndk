@@ -5,3 +5,4 @@ extras;google;google_play_services
 platform-tools
 platforms;android-28
 add-ons;addon-google_apis-google-28
+ndk-bundle
