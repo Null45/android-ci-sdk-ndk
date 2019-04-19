@@ -56,4 +56,5 @@ RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 
 ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
 RUN unzip /ndk.zip -d $ANDROID_NDK_HOME && \
-    rm -v /ndk.zip
+    rm -v /ndk.zip && \
+    mv ${ANDROID_NDK_HOME}/${VERSION_ANDROID_NDK} ${ANDROID_NDK_HOME}
