@@ -55,11 +55,10 @@ ${ANDROID_HOME}/tools/bin/sdkmanager ${PACKAGES}
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 
 ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
-RUN unzip /ndk.zip -d /sdk && \
+RUN unzip /ndk.zip -d $ANDROID_HOME && \
     rm -v /ndk.zip
 
-RUN mkdir -p /cmake
 ADD https://github.com/Kitware/CMake/releases/download/v3.10.2/cmake-3.10.2.zip /cmake.zip
-RUN unzip /cmake.zip -d /cmake && \
+RUN unzip /cmake.zip -d $ANDROID_HOME && \
     rm -v /cmake.zip
 
