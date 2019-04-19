@@ -1,5 +1,9 @@
 ### Continous Integration (CI) for Android apps on GitLab
 
+![Docker Pulls](https://img.shields.io/docker/pulls/hantrungkien/android-ci-sdk-ndk.svg)
+![Docker Automated](https://img.shields.io/docker/automated/hantrungkien/android-ci-sdk-ndk.svg)
+![Docker Build](https://img.shields.io/docker/cloud/build/hantrungkien/android-ci-sdk-ndk.svg)
+
 ## Sample usages
 ### GitLab
 *.gitlab-ci.yml*
@@ -28,7 +32,7 @@ build:
   artifacts:
     paths:
       - app/build/outputs/apk/
-      
+
 unitTests:
   stage: test
   script:
