@@ -60,7 +60,7 @@ RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
 RUN unzip /ndk.zip -d $ANDROID_NDK_HOME && \
     rm -v /ndk.zip && \
-    mv /sdk/ndk-bundle/android-ndk-r19c/* /sdk/ndk-bundle/
+    mv ${ANDROID_NDK_HOME}/${VERSION_ANDROID_NDK}/* ${ANDROID_NDK_HOME}/
 
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
     yes | ${ANDROID_HOME}/tools/bin/sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10 \
