@@ -1,6 +1,8 @@
 FROM ubuntu:18.04
 MAINTAINER KienHT<kienhantrung@gmai.com>
 
+ENV LANG en_US.utf8
+
 ENV VERSION_SDK_TOOLS "4333796"
 
 ENV ANDROID_HOME "/sdk"
