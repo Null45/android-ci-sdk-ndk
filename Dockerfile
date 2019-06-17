@@ -1,8 +1,6 @@
 FROM ubuntu:18.04
 MAINTAINER KienHT<kienhantrung@gmai.com>
 
-ENV LANG en_US.utf8
-
 ENV VERSION_SDK_TOOLS "4333796"
 
 ENV ANDROID_HOME "/sdk"
@@ -37,6 +35,10 @@ RUN apt-get -qq update && \
       build-essential \
       file \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
 
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
