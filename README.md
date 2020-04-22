@@ -1,8 +1,7 @@
 ### Continous Integration (CI) for Android apps on GitLab
 
-![Docker Pulls](https://img.shields.io/docker/pulls/hantrungkien/android-ci-sdk-ndk.svg)
-![Docker Automated](https://img.shields.io/docker/automated/hantrungkien/android-ci-sdk-ndk.svg)
-![Docker Build](https://img.shields.io/docker/cloud/build/hantrungkien/android-ci-sdk-ndk.svg)
+![Docker Automated](https://img.shields.io/docker/automated/Null45/android-ci-sdk-ndk.svg)
+![Docker Build](https://img.shields.io/docker/cloud/build/Null45/android-ci-sdk-ndk.svg)
 
 ## Sample usages
 ### GitLab
