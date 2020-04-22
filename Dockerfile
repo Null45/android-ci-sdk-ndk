@@ -1,5 +1,4 @@
 FROM ubuntu:18.04
-MAINTAINER KienHT<kienhantrung@gmai.com>
 
 ENV VERSION_SDK_TOOLS "4333796"
 
