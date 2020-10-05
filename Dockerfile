@@ -6,7 +6,7 @@ ENV ANDROID_HOME "/sdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV VERSION_ANDROID_NDK "android-ndk-r20b"
+ENV VERSION_ANDROID_NDK "android-ndk-r20"
 
 ENV ANDROID_NDK_HOME "/sdk/ndk-bundle"
 
