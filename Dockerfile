@@ -66,5 +66,4 @@ RUN unzip /ndk.zip -d $ANDROID_NDK_HOME && \
     mv ${ANDROID_NDK_HOME}/${VERSION_ANDROID_NDK}/* ${ANDROID_NDK_HOME}/
 
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
-    yes | ${ANDROID_HOME}/tools/bin/sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10 \
-    && yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'ndk-bundle' 
+    yes | ${ANDROID_HOME}/tools/bin/sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10
