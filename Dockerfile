@@ -6,9 +6,7 @@ ENV ANDROID_HOME "/sdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV VERSION_ANDROID_NDK "android-ndk-r20"
-
-ENV ANDROID_NDK_HOME "/sdk/ndk-bundle"
+ENV VERSION_ANDROID_NDK "21.0.6113669"
 
 ENV ANDROID_CMAKE_REV="3.6.4111459"
 ENV ANDROID_CMAKE_REV_3_10="3.10.2.4988404"
@@ -60,10 +58,6 @@ ${ANDROID_HOME}/tools/bin/sdkmanager ${PACKAGES}
 
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 
-ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
-RUN unzip /ndk.zip -d $ANDROID_NDK_HOME && \
-    rm -v /ndk.zip && \
-    mv ${ANDROID_NDK_HOME}/${VERSION_ANDROID_NDK}/* ${ANDROID_NDK_HOME}/
-
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
-    yes | ${ANDROID_HOME}/tools/bin/sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10
+    yes | ${ANDROID_HOME}/tools/bin/sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10 \
+    && yes | ${ANDROID_HOME}/tools/bin/sdkmanager --install --channel=0 'ndk;'$VERSION_ANDROID_NDK
